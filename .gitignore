@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# Models
+models/*.pkl
+models/*.joblib
+
+# Data
+datasets/*.csv
+
+# Environment variables
+.env
+
+# MLflow
+mlruns/
+
+# IDE
+.vscode/
+.idea/
