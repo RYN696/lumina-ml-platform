@@ -7,6 +7,7 @@ from pandas.api.types import (
 from app.ml.statistics import get_numeric_statistics
 from app.ml.correlations import get_correlation_matrix
 from app.ml.outliers import detect_outliers
+from app.ml.utils import detect_identifier_columns
 
 class DatasetProfiler:
     # Automatic Dataset Analysis
@@ -74,6 +75,9 @@ class DatasetProfiler:
 
     def get_outliers(self):
         return detect_outliers(self.data)
+
+    def get_identifier_columns(self):
+        return detect_identifier_columns(self.data)
     
     def get_constant_columns(self):
     
@@ -104,6 +108,8 @@ class DatasetProfiler:
                 "constant_columns": self.get_constant_columns(),
 
                 "correlations": self.get_correlation_matrix(),
-                "outliers": self.get_outliers()
+
+                "outliers": self.get_outliers(),
+                "identifier_columns": self.get_identifier_columns()
         }
         return report

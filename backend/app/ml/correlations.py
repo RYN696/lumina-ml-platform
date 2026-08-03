@@ -1,8 +1,13 @@
 import pandas as pd
+from app.ml.utils import get_analysis_columns
+
 
 def get_correlation_matrix(dataframe: pd.DataFrame) -> dict:
     #  Compute the Pearson correlation matrix for numerical columns
-    numerical_df = dataframe.select_dtypes(include="number")
+
+    analysis_columns = get_analysis_columns(dataframe)
+
+    numerical_df = dataframe[analysis_columns]
 
     if numerical_df.shape[1] < 2:
         return {}

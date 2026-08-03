@@ -1,10 +1,11 @@
 import pandas as pd
+from app.ml.utils import get_analysis_columns
 
 def detect_outliers(dataframe: pd.DataFrame) -> dict:
     # Detect outliers using the IQR method
     results = {}
-    numerical_columns = dataframe.select_dtypes(include="number").columns
-
+    
+    numerical_columns = get_analysis_columns(dataframe)
     for column in numerical_columns:
         series = dataframe[column]
         Q1 = series.quantile(0.25)

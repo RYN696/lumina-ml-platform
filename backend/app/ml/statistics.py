@@ -1,5 +1,7 @@
 import pandas as pd
 
+from app.ml.utils import get_analysis_columns
+
 
 def get_numeric_statistics(dataframe: pd.DataFrame) -> dict:
     
@@ -7,8 +9,8 @@ def get_numeric_statistics(dataframe: pd.DataFrame) -> dict:
 
     statistics = {}
 
-    numerical_columns = dataframe.select_dtypes(include="number").columns
-
+    numerical_columns = get_analysis_columns(dataframe)
+    
     for column in numerical_columns:
 
         series = dataframe[column]
