@@ -31,6 +31,7 @@ class DatasetValidator:
         report["errors"].extend(self.check_no_columns())
         
         report["warnings"].extend(self.check_empty_columns())
+        report["warnings"].extend(self.check_constant_columns())
 
         if report["errors"]:
             report["status"] = "invalid"
@@ -68,5 +69,20 @@ class DatasetValidator:
         for column in self.data.columns:
             if self.data[column].isnull().all():
                 warnings.append(f"Column '{column}' contains only missing values.")
+
+        return warnings
+
+
+    def check_constant_columns(self) -> list[str]:
+        """
+        Check for columns containing only one unique value.
+        """
+        warnings = []
+
+        for column in self.data.columns:
+            if self.data[column].nunique() == 1:
+                warnings.append(
+                    f"Column '{column}' contains only one unique value."
+                )
 
         return warnings
